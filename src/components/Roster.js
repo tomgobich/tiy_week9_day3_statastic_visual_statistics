@@ -21,7 +21,7 @@ class Roster extends Component {
 						  </thead>
 						  <tbody>
 						    {
-						    	this.props.roster.map((player, index) => {
+						    	this.props.data.map((player, index) => {
 						    		// Player currently active member of team?
 						        if(player.active) {
 						        	// Yes, display player

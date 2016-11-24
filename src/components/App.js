@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import Utilities from '../utilities/searchUtilities';
+import PlayerCharts from './PlayerCharts';
 import Roster from './Roster';
 
 class App extends Component {
-
-
 
   constructor(props)
   {
@@ -17,12 +16,13 @@ class App extends Component {
       teamSubmit: '',
       teamName: 'Atlanta Hawks',
       teams: [],
-      players: []
+      players: [],
     };
 
     this.teamChange = this.teamChange.bind(this);
     this.teamSubmit = this.teamSubmit.bind(this);
   }
+
 
 
   // Gets team listing
@@ -44,19 +44,19 @@ class App extends Component {
     promise.then(response => {
       let teamPlayerList = Utilities.verifyTeamPlayer(response.players, this.state.teams[teamIndex].id);
 
-      this.setState({ players: teamPlayerList })
-
-      console.log(this.state.players);
+      this.setState({ players: teamPlayerList });
     });
   }
 
   // Updates current teamSubmit value
-  teamChange(e) {
+  teamChange(e)
+  {
     this.setState({ teamSubmit: e.target.value });
   }
 
   // Passes teamSubmit value
-  teamSubmit(e) {
+  teamSubmit(e)
+  {
     e.preventDefault();
 
     let teamInfo = Utilities.findTeamFromSearch(this.state.teams, this.state.teamSubmit);
@@ -76,7 +76,6 @@ class App extends Component {
     {
       alert('No team matching your search could be found. Please try again.');
     }
-
   }
 
 
@@ -115,9 +114,12 @@ class App extends Component {
             </nav>
           </div>
           <div className="col-xs-12">
-              <h2 className="team-name">{this.state.teamName} Statistics</h2>
+            <h2 className="team-name">{this.state.teamName} Statistics</h2>
           </div>
-          <Roster roster={this.state.players} />
+          <div className="col-xs-12">
+            <PlayerCharts data={this.state.players} />
+          </div>
+          <Roster data={this.state.players} />
         </div>
       </div>
     );
