@@ -1,0 +1,25 @@
+$fontHeading: 'Vollkorn', serif;
+$fontBody: 'Exo 2', sans-serif;
+
+body {
+	font-family: $fontBody;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $fontHeading;
+}
+
+.team-name {
+	padding: 40px 0;
+	margin: 0;
+}
+
+.section-title {
+	padding: 40px 0 4px;
+	margin: 0;
+}
