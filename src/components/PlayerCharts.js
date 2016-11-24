@@ -55,12 +55,16 @@ class PlayerCharts extends Component {
   		]
   	}
 
+  	let options = {
+  		responsive: true
+  	}
+
   	
 
   	// Currently just prints out each players name OR salary depending on array passed in
     return (
      <div className="charts">
-     	<LineChart data={data} width="400" height="400" />
+     	<LineChart data={data} options={options} />
      </div>
     )
   }
