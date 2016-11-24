@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import Chart from 'react-chartjs';
+
 
 class PlayerCharts extends Component {
 
@@ -37,17 +40,27 @@ class PlayerCharts extends Component {
 
   render() {
 
+  	let LineChart = Chart.Line;
+
+  	let ctx = $('#myChart');
+
   	let playerNames 		= this.getPlayerNames();
   	let playerSalaries 	= this.getPlayerSalaries();
+  	let data = { 
+  		labels: playerNames,
+  		datasets: [
+  			{
+  				data: playerSalaries
+  			}
+  		]
+  	}
+
+  	
 
   	// Currently just prints out each players name OR salary depending on array passed in
     return (
      <div className="charts">
-     	{ 
-	    	playerNames.map((player, index) => {
-	    		return <p key={index}>{player}</p>
-	      })
-	  	}
+     	<LineChart data={data} width="400" height="400" />
      </div>
     )
   }
