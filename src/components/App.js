@@ -104,35 +104,32 @@ class App extends Component {
   render()
   {
     return(
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-12">
-            <nav className="navbar navbar-dark bg-inverse">
-              <a className="navbar-brand" href="#">Statastics</a>
-              <ul className="nav navbar-nav">
-                <li className="nav-item active">
-                  <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Link</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Link</a>
-                </li>
-              </ul>
-              <form className="form-inline float-xs-right" onSubmit={this.teamSubmit}>
-                <input id="teamSearch" className="form-control" type="text" placeholder="Enter NBA Team..." onChange={this.teamChange} />
-                <button className="btn btn-outline-success" type="submit">Search</button>
+      <div className="app">
+        <nav className="navbar navbar-dark bg-primary">
+          <div className="container">
+            <div className="navbar-xs">
+              <p className="navbar-brand">Statastic</p>
+              <span className="navbar-brand subtext hidden-sm-down">
+                Fan-tastic Stats!
+              </span>
+              <form className="navbar-form navbar-form" onSubmit={this.teamSubmit}>
+                <div className="form-group">
+                  <input id="teamSearch" className="form-control col-sm-8" type="text" placeholder="Enter NBA Team..." onChange={this.teamChange} />
+                </div>
               </form>
-            </nav>
+            </div>
           </div>
-          <div className="col-xs-12">
-            <h2 className="team-name">{this.state.teamName} Statistics</h2>
+        </nav>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12">
+              <h2 className="team-name">{this.state.teamName} Statistics</h2>
+            </div>
+            <div className="col-xs-12">
+              <PlayerCharts data={this.state.players} stats={this.state.playerStats} />
+            </div>
+            <Roster data={this.state.players} />
           </div>
-          <div className="col-xs-12">
-            <PlayerCharts data={this.state.players} stats={this.state.playerStats} />
-          </div>
-          <Roster data={this.state.players} />
         </div>
       </div>
     );

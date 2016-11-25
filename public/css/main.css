@@ -1,23 +1,35 @@
 body {
   font-family: "Exo 2", sans-serif; }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Vollkorn", serif; }
+.navbar .navbar-brand {
+  padding-bottom: 0;
+  margin-bottom: 0; }
+  .navbar .navbar-brand.subtext {
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 200;
+    font-size: 1em;
+    padding-top: 9px; }
+.navbar form {
+  float: left;
+  width: 100%;
+  margin-bottom: 5px; }
+  .navbar form input {
+    margin: 5px 0; }
 
 .team-name {
   padding: 40px 0;
   margin: 0; }
 
 .section-title {
-  padding: 40px 0 4px;
+  padding: 40px 0 10px;
   margin: 0; }
 
 .charts {
   width: 100%; }
+  .charts .chart {
+    margin-bottom: 40px; }
+
+.table {
+  margin-bottom: 40px; }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,17 +1,32 @@
-$fontHeading: 'Vollkorn', serif;
 $fontBody: 'Exo 2', sans-serif;
 
 body {
 	font-family: $fontBody;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: $fontHeading;
+.navbar {
+
+	.navbar-brand {
+		padding-bottom: 0;
+		margin-bottom: 0;
+
+		&.subtext {
+			color: rgba(255, 255, 255, 0.4);
+			font-weight: 200;
+			font-size: 1em;
+			padding-top: 9px;
+		}
+	}
+
+	form {
+		float: left;
+		width: 100%;
+		margin-bottom: 5px;
+
+		input {
+			margin: 5px 0;
+		}
+	}
 }
 
 .team-name {
@@ -20,10 +35,18 @@ h6 {
 }
 
 .section-title {
-	padding: 40px 0 4px;
+	padding: 40px 0 10px;
 	margin: 0;
 }
 
 .charts {
 	width: 100%;
+
+	.chart {
+		margin-bottom: 40px;
+	}
+}
+
+.table {
+	margin-bottom: 40px;
 }
