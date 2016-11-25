@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import Utilities from '../utilities/searchUtilities';
+import Utilities from '../utilities/utilities';
 import PlayerCharts from './PlayerCharts';
 import Roster from './Roster';
 
@@ -17,6 +17,7 @@ class App extends Component {
       teamName: 'Atlanta Hawks',
       teams: [],
       players: [],
+      playerStats: []
     };
 
     this.teamChange = this.teamChange.bind(this);
@@ -41,11 +42,23 @@ class App extends Component {
     let teamSlug = this.state.teams[teamIndex].slug;
 
     let promise = Utilities.getNBATeamPlayers(teamSlug);
-    promise.then(response => {
+    promise.then(response =>
+    {
       let teamPlayerList = Utilities.verifyTeamPlayer(response.players, this.state.teams[teamIndex].id);
 
       this.setState({ players: teamPlayerList });
+
+      this.getTeamPlayersStats(teamSlug);
     });
+  }
+
+  getTeamPlayersStats(teamSlug)
+  {
+    let promise = Utilities.getNBATeamPlayersStats(teamSlug);
+    promise.then(response =>
+    {
+      this.setState({ playerStats: response.player_season_stats });
+    })
   }
 
   // Updates current teamSubmit value
@@ -117,7 +130,7 @@ class App extends Component {
             <h2 className="team-name">{this.state.teamName} Statistics</h2>
           </div>
           <div className="col-xs-12">
-            <PlayerCharts data={this.state.players} />
+            <PlayerCharts data={this.state.players} stats={this.state.playerStats} />
           </div>
           <Roster data={this.state.players} />
         </div>

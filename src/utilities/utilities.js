@@ -44,6 +44,26 @@ let Utilities =
 
 
   // --------------------------------------------------
+  // Name: getNBATeamPlayersStats
+  // Abstract: Gets NBA team's player's season average statistics
+  // --------------------------------------------------
+  getNBATeamPlayersStats: (teamSlug) =>
+  {
+    let promise = $.ajax({
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token token=02cfc5b8af2037d657aa7c9f7ac501be",
+        "Accept": "application/vnd.stattleship.com; version=1"
+      },
+      url: `https://api.stattleship.com/basketball/nba/player_season_stats?team_id=${teamSlug}`,
+    });
+
+    return promise;
+  },
+
+
+
+  // --------------------------------------------------
   // Name: findTeamFromSearch
   // Abstract: Finds team from teamList matching user input
   // --------------------------------------------------
@@ -98,13 +118,9 @@ let Utilities =
   // --------------------------------------------------
   verifyTeamPlayer: (playerList, teamID) =>
   {
-    console.log({playerList, teamID});
-
     let teamPlayerList = playerList.filter((player) => {
       return player.team_id === teamID;
     });
-
-    console.log({teamPlayerList});
 
     return teamPlayerList;
   }

@@ -1,58 +1,53 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import ReactHighcharts from 'react-highcharts';
+import ChartUtilities from '../utilities/chartUtilities';
 
 
 class PlayerCharts extends Component {
 
-  // Get array with only player salary info
-  // Excludes null salary valued players
-  getPlayerSalaries()
-  {
-    let players = this.props.data;
-    let salaries = [];
-
-    players.forEach(player => 
-    {
-      let salary = player.salary;
-
-      if(salary !== null)
-      { 
-      	salaries.push(salary);
-      }
-    })
-
-    console.log({players, salaries});
-
-    return salaries;
-  }
-
-  // Get array with only player name info
-  // Excludes null salary valued players
-	getPlayerNames()
+  loadPlayerData()
   {
   	let players = this.props.data;
-  	let names = [];
+  	let playerStats = this.props.stats;
+  	let playerData = [];
 
-  	players.forEach(player => 
+  	players.forEach(player =>
   	{
-  		if(player.salary !== null)
+  		let playerObject = {
+  			id: player.id,
+  			name: player.name,
+  			salary: player.salary,
+  		};
+
+  		playerStats.forEach(stat =>
   		{
-  			names.push(player.name);
-  		}
+  			if(stat.player_id === playerObject.id)
+  			{
+  				playerObject.average_minutes = stat.average_minutes;
+  			}
+  		})
+
+  		playerData.push(playerObject);
   	})
 
-  	return names;
+  	return playerData;
   }
 
 
 
   render() {
 
-  	let playerNames 		= this.getPlayerNames();
-  	let playerSalaries 	= this.getPlayerSalaries();
+  	let playerData = this.loadPlayerData();
 
-    var myChart = {
+  	console.log(playerData);
+
+  	let playerSalaryNames 	= ChartUtilities.getPlayerSalaryNames(playerData);
+  	let playerSalaries 			= ChartUtilities.getPlayerSalaries(playerData);
+  	// let playerMinuteNames		= ChartUtilities.getPlayerMinuteNames(playerData);
+  	let playerMinuteAverage = ChartUtilities.getPlayerMinuteAverage(playerData);
+
+    let salaryChart = {
         chart: {
             type: 'line'
         },
@@ -60,7 +55,7 @@ class PlayerCharts extends Component {
             text: 'Player Salaries'
         },
         xAxis: {
-            categories: playerNames
+            categories: playerSalaryNames
         },
         yAxis: {
             title: {
@@ -78,7 +73,7 @@ class PlayerCharts extends Component {
   	// Currently just prints out each players name OR salary depending on array passed in
     return (
      <div className="charts">
-     	<ReactHighcharts config={myChart} />
+     	<ReactHighcharts config={salaryChart} />
      </div>
     )
   }
