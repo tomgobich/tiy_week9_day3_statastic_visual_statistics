@@ -1,34 +1,25 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import Chart from 'react-chartjs';
+import ReactHighcharts from 'react-highcharts';
 
 
 class PlayerCharts extends Component {
 
-  getPlayerNames()
-  {
-  	let players = this.props.data;
-  	let names = [];
-
-  	players.forEach(player => {
-  		names.push(player.name);
-  	})
-
-  	return names;
-  }
-
   // Get array with only player salary info
+  // Excludes null salary valued players
   getPlayerSalaries()
   {
     let players = this.props.data;
     let salaries = [];
 
-    players.forEach(player => {
+    players.forEach(player => 
+    {
       let salary = player.salary;
 
-      if(salary === null) { salary = 0 };
-
-      salaries.push(salary);
+      if(salary !== null)
+      { 
+      	salaries.push(salary);
+      }
     })
 
     console.log({players, salaries});
@@ -36,35 +27,58 @@ class PlayerCharts extends Component {
     return salaries;
   }
 
+  // Get array with only player name info
+  // Excludes null salary valued players
+	getPlayerNames()
+  {
+  	let players = this.props.data;
+  	let names = [];
+
+  	players.forEach(player => 
+  	{
+  		if(player.salary !== null)
+  		{
+  			names.push(player.name);
+  		}
+  	})
+
+  	return names;
+  }
+
 
 
   render() {
 
-  	let LineChart = Chart.Line;
-
-  	let ctx = $('#myChart');
-
   	let playerNames 		= this.getPlayerNames();
   	let playerSalaries 	= this.getPlayerSalaries();
-  	let data = { 
-  		labels: playerNames,
-  		datasets: [
-  			{
-  				data: playerSalaries
-  			}
-  		]
-  	}
 
-  	let options = {
-  		responsive: true
-  	}
+    var myChart = {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Player Salaries'
+        },
+        xAxis: {
+            categories: playerNames
+        },
+        yAxis: {
+            title: {
+                text: 'Salary in USD'
+            }
+        },
+        series: [{
+            name: 'Player Salaries',
+            data: playerSalaries
+        }]
+    }
 
   	
 
   	// Currently just prints out each players name OR salary depending on array passed in
     return (
      <div className="charts">
-     	<LineChart data={data} options={options} />
+     	<ReactHighcharts config={myChart} />
      </div>
     )
   }
