@@ -13,3 +13,4 @@ This application was built on React and gathers data from [Stattleship](http://s
 - JavaScript
 - React
 - Stattleship API
+- Highcharts
