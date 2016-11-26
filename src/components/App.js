@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import Utilities from '../utilities/utilities';
+import Header from './Header';
 import PlayerCharts from './PlayerCharts';
 import Roster from './Roster';
 import { Notification } from 'react-notification';
@@ -54,6 +54,7 @@ class App extends Component {
     });
   }
 
+  // Gets a teams player statistics
   getTeamPlayersStats(teamSlug)
   {
     let promise = Utilities.getNBATeamPlayersStats(teamSlug);
@@ -64,36 +65,24 @@ class App extends Component {
   }
 
   // Passes teamSubmit value
-  teamSubmit(e)
+  teamSubmit(teamSearch)
   {
-    e.preventDefault();
-
-    let searchValue = $('#teamSearch').val();
-
-    console.log(Utilities.findTeamFromSearch(this.state.teams, searchValue));
-
-    let teamInfo = Utilities.findTeamFromSearch(this.state.teams, searchValue);
-
-    console.log(teamInfo);
+    let teamInfo = Utilities.findTeamFromSearch(this.state.teams, teamSearch);
 
     if(typeof teamInfo === 'object')
     {
-      console.log('door #1');
       this.getTeamPlayers(teamInfo.index);
       this.setState({ 
         teamIndex: teamInfo.index, 
         teamName: teamInfo.name,
-        teamSubmit: '',
       });
-
-      $('#teamSearch').val('');
     }
     else
     {
-      let $noSearchResults = $('#noSearchResults');
-      console.log('door #2');
       this.setState({ searchError: true });
     }
+
+    console.log({})
   }
 
   setNotificationInactive()
@@ -103,8 +92,8 @@ class App extends Component {
 
 
 
-  // Load initial forecast
-  componentWillMount()
+  // Runs getTeams
+  componentDidMount()
   {
     this.getTeams();
   }
@@ -115,21 +104,7 @@ class App extends Component {
   {
     return(
       <div className="app">
-        <nav className="navbar navbar-dark bg-primary">
-          <div className="container">
-            <div className="navbar-xs">
-              <p className="navbar-brand">Statastic</p>
-              <span className="navbar-brand subtext hidden-sm-down">
-                Fan-tastic Stats!
-              </span>
-              <form className="navbar-form navbar-form" onSubmit={this.teamSubmit}>
-                <div className="form-group">
-                  <input id="teamSearch" className="form-control col-sm-8" type="text" placeholder="Enter NBA Team..."  />
-                </div>
-              </form>
-            </div>
-          </div>
-        </nav>
+        <Header teamSubmit={this.teamSubmit} />
         <div className="container">
           <div className="row">
             <div className="col-xs-12">
