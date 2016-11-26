@@ -1,0 +1,71 @@
+$fontBody: 'Exo 2', sans-serif;
+
+body {
+	font-family: $fontBody;
+}
+
+.navbar {
+
+	.navbar-brand {
+		padding-bottom: 0;
+		margin-bottom: 0;
+
+		&.subtext {
+			color: rgba(255, 255, 255, 0.4);
+			font-weight: 200;
+			font-size: 1em;
+			padding-top: 9px;
+		}
+	}
+
+	form {
+		float: left;
+		width: 100%;
+		margin-bottom: 5px;
+
+		input {
+			margin: 5px 0;
+		}
+	}
+}
+
+.team-name {
+	padding: 40px 0;
+	margin: 0;
+}
+
+.section-title {
+	padding: 40px 0 10px;
+	margin: 0;
+}
+
+.charts {
+	width: 100%;
+
+	.chart {
+		margin-bottom: 40px;
+	}
+}
+
+.table {
+	margin-bottom: 40px;
+}
+
+.alert {
+	display: none;
+	background-color: rgba(red, 0.6);
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+	margin: 20px 0;
+	transition: 0.3s ease;
+}
+
+.notification-bar-active {
+	top: 123px;
+	right: 1rem;
+	bottom: auto !important;
+	left: auto !important;
+	background-color: rgba(red, 0.8) !important;
+	font-family: $fontBody !important;
+}
