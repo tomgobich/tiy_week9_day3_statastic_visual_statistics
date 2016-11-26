@@ -10,9 +10,9 @@ class PlayerCharts extends Component {
 	// This keeps info in same order throughout
   loadPlayerData()
   {
-  	let players = this.props.data;
+  	let players 		= this.props.data;
   	let playerStats = this.props.stats;
-  	let playerData = [];
+  	let playerData 	= [];
 
   	// Loop through players array
   	players.forEach(player =>
@@ -62,8 +62,6 @@ class PlayerCharts extends Component {
   	let playerAverageMinute 		= ChartUtilities.getPieChartData(playerData, AVERAGE_MINUTES_FIELD);
   	let playerGameStatNames			= ChartUtilities.getPlayerGameStatNames(playerData);
   	let playerGameStats					= ChartUtilities.getPlayerGameStats(playerData);
-
-  	console.log(playerGameStats);
 
   	// Set parameters for salary chart
     let salaryChart = {
@@ -125,7 +123,7 @@ class PlayerCharts extends Component {
 	    }]
     }
 
-    // Set parameters for salary chart
+    // Set configurations for player game stats chart
     let playerGameStatsConfig = {
       chart: {
           type: 'column'
@@ -152,7 +150,6 @@ class PlayerCharts extends Component {
 
   	
 
-  	// Currently just prints out each players name OR salary depending on array passed in
     return (
      <div className="charts">
      	<div className="row">

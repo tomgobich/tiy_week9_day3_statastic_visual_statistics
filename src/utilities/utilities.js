@@ -85,6 +85,7 @@ let Utilities =
          nickname.includes(teamInput.toUpperCase()) ||
          city.includes(teamInput.toUpperCase()))
       {
+        console.log('match found');
         // Yes, capture that index
         teamIndex = index;
         teamName  = team.name + ' ' + team.nickname;
@@ -95,7 +96,7 @@ let Utilities =
     if(teamIndex === null && teamInput.length > 2)
     {
       // Yes, remove a character from teamInput and try again
-      Utilities.findTeamFromSearch(teamList, teamInput.slice(0, -1));
+      return Utilities.findTeamFromSearch(teamList, teamInput.slice(0, -1));
     }
     else if(teamIndex === null)
     {

@@ -32,4 +32,22 @@ body {
 .table {
   margin-bottom: 40px; }
 
+.alert {
+  display: none;
+  background-color: rgba(255, 0, 0, 0.6);
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 20px 0;
+  -webkit-transition: 0.3s ease;
+          transition: 0.3s ease; }
+
+.notification-bar-active {
+  top: 123px;
+  right: 1rem;
+  bottom: auto !important;
+  left: auto !important;
+  background-color: rgba(255, 0, 0, 0.8) !important;
+  font-family: "Exo 2", sans-serif !important; }
+
 /*# sourceMappingURL=main.css.map */

@@ -3,6 +3,8 @@ import $ from 'jquery';
 import Utilities from '../utilities/utilities';
 import PlayerCharts from './PlayerCharts';
 import Roster from './Roster';
+import { Notification } from 'react-notification';
+
 
 class App extends Component {
 
@@ -13,15 +15,15 @@ class App extends Component {
     this.state = {
       nbaTeam:   'nba-atl',
       nbaTeamIndex: 0,
-      teamSubmit: '',
       teamName: 'Atlanta Hawks',
       teams: [],
       players: [],
-      playerStats: []
+      playerStats: [],
+      searchError: false,
     };
 
-    this.teamChange = this.teamChange.bind(this);
     this.teamSubmit = this.teamSubmit.bind(this);
+    this.setNotificationInactive = this.setNotificationInactive.bind(this);
   }
 
 
@@ -61,21 +63,22 @@ class App extends Component {
     })
   }
 
-  // Updates current teamSubmit value
-  teamChange(e)
-  {
-    this.setState({ teamSubmit: e.target.value });
-  }
-
   // Passes teamSubmit value
   teamSubmit(e)
   {
     e.preventDefault();
 
-    let teamInfo = Utilities.findTeamFromSearch(this.state.teams, this.state.teamSubmit);
+    let searchValue = $('#teamSearch').val();
 
-    if(typeof teamInfo.index === 'number')
+    console.log(Utilities.findTeamFromSearch(this.state.teams, searchValue));
+
+    let teamInfo = Utilities.findTeamFromSearch(this.state.teams, searchValue);
+
+    console.log(teamInfo);
+
+    if(typeof teamInfo === 'object')
     {
+      console.log('door #1');
       this.getTeamPlayers(teamInfo.index);
       this.setState({ 
         teamIndex: teamInfo.index, 
@@ -87,8 +90,15 @@ class App extends Component {
     }
     else
     {
-      alert('No team matching your search could be found. Please try again.');
+      let $noSearchResults = $('#noSearchResults');
+      console.log('door #2');
+      this.setState({ searchError: true });
     }
+  }
+
+  setNotificationInactive()
+  {
+    this.setState({ searchError: false });
   }
 
 
@@ -114,7 +124,7 @@ class App extends Component {
               </span>
               <form className="navbar-form navbar-form" onSubmit={this.teamSubmit}>
                 <div className="form-group">
-                  <input id="teamSearch" className="form-control col-sm-8" type="text" placeholder="Enter NBA Team..." onChange={this.teamChange} />
+                  <input id="teamSearch" className="form-control col-sm-8" type="text" placeholder="Enter NBA Team..."  />
                 </div>
               </form>
             </div>
@@ -123,6 +133,13 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col-xs-12">
+              <Notification
+                isActive={this.state.searchError}
+                message="No search results were found, please try again!"
+                action="Dismiss"
+                dismissAfter={3000}
+                onDismiss={this.setNotificationInactive}
+              />
               <h2 className="team-name">{this.state.teamName} Statistics</h2>
             </div>
             <div className="col-xs-12">
